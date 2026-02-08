@@ -1,0 +1,17 @@
+import { Box, Typography } from "@mui/material"
+
+
+export const StatisticLine = ({ prefix, suffix, suffixUp }) => {
+    return (
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between'
+        }}>
+            <Typography variant="body1"> {prefix} </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Typography variant="body2"> {suffixUp} </Typography>
+                <Typography variant="body1"> {suffix} </Typography>
+            </Box>
+        </Box>
+    )
+}
