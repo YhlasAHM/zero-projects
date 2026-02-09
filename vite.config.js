@@ -12,7 +12,7 @@ export default defineConfig({
     jsconfigPaths(),
     tailwindcss(),
   ],
-  base: '/dashboard/',
+  base: '/',
   server: {
     host: true,
   },

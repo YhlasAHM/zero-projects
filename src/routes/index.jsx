@@ -1,25 +1,29 @@
-import { createBrowserRouter } from 'react-router-dom';
-import PageWrapperNoAuth from './PageWrapperNoAuth';
-import { NotFoundPage } from '../pages/others/notfound';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import PageWrapperNoAuth from "./PageWrapperNoAuth";
+import { NotFoundPage } from "../pages/others/notfound";
 
-import PageWrapper from './PageWrapper'
-import { DashBoardPage } from '../pages/dashboard/Dashboard';
-import NotificationsPage from '../pages/notifications/Notifications';
-import NewRequestsPage from '../pages/newRequests/NewRequests';
-import EmployeesPage from '../pages/employees/Employees';
-import AttendancePage from '../pages/attendance/Attendance';
-import TasksPage from '../pages/tasks/Tasks';
-import LeaveRequestsPage from '../pages/leaveRequests/LeaveRequests';
-import LetterRequestsPage from '../pages/letterRequests/LetterRequests';
-import AnnouncementsPage from '../pages/announcements/Announcements';
-import DocumentsPage from '../pages/documents/Documents';
-import CalendarPage from '../pages/calendar/Calendar';
-import SettingsPage from '../pages/settings/Settings';
+import PageWrapper from "./PageWrapper";
+import { DashBoardPage } from "../pages/dashboard/Dashboard";
+import NotificationsPage from "../pages/notifications/Notifications";
+import NewRequestsPage from "../pages/newRequests/NewRequests";
+import EmployeesPage from "../pages/employees/Employees";
+import AttendancePage from "../pages/attendance/Attendance";
+import TasksPage from "../pages/tasks/Tasks";
+import LeaveRequestsPage from "../pages/leaveRequests/LeaveRequests";
+import LetterRequestsPage from "../pages/letterRequests/LetterRequests";
+import AnnouncementsPage from "../pages/announcements/Announcements";
+import DocumentsPage from "../pages/documents/Documents";
+import CalendarPage from "../pages/calendar/Calendar";
+import SettingsPage from "../pages/settings/Settings";
 
 const routes = createBrowserRouter(
   [
     {
-      path: '/dashboard',
+      path: "/",
+      element: <Navigate to="/dashboard" replace />,
+    },
+    {
+      path: "/dashboard",
       element: (
         <PageWrapper>
           <DashBoardPage />
@@ -27,7 +31,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/employees',
+      path: "/employees",
       element: (
         <PageWrapper>
           <EmployeesPage />
@@ -35,7 +39,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/attendance',
+      path: "/attendance",
       element: (
         <PageWrapper>
           <AttendancePage />
@@ -43,7 +47,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/tasks',
+      path: "/tasks",
       element: (
         <PageWrapper>
           <TasksPage />
@@ -51,7 +55,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/leaveRequests',
+      path: "/leaveRequests",
       element: (
         <PageWrapper>
           <LeaveRequestsPage />
@@ -59,7 +63,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/newRequests',
+      path: "/newRequests",
       element: (
         <PageWrapper>
           <NewRequestsPage />
@@ -67,7 +71,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/letterRequests',
+      path: "/letterRequests",
       element: (
         <PageWrapper>
           <LetterRequestsPage />
@@ -75,7 +79,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/announcements',
+      path: "/announcements",
       element: (
         <PageWrapper>
           <AnnouncementsPage />
@@ -83,7 +87,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/documents',
+      path: "/documents",
       element: (
         <PageWrapper>
           <DocumentsPage />
@@ -91,7 +95,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/calendar',
+      path: "/calendar",
       element: (
         <PageWrapper>
           <CalendarPage />
@@ -99,7 +103,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/settings',
+      path: "/settings",
       element: (
         <PageWrapper>
           <SettingsPage />
@@ -107,7 +111,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '/notifications',
+      path: "/notifications",
       element: (
         <PageWrapper>
           <NotificationsPage />
@@ -115,17 +119,17 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '*',
+      path: "*",
       element: (
         <PageWrapperNoAuth>
-          {' '}
+          {" "}
           <NotFoundPage />
         </PageWrapperNoAuth>
       ),
     },
   ],
   {
-    basename: '/',
+    basename: "/",
   },
 );
 

@@ -8,59 +8,71 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 import { useSidebarItems } from "../../hooks/useSidebarItems";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
-    const { sidebarItemsRoutes } = useSidebarItems();
-    const navigate = useNavigate()
+  const { sidebarItemsRoutes } = useSidebarItems();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    return (
-        <Drawer
-            variant="permanent"
-            anchor="left"
-            sx={{
-                width: 260,
-                flexShrink: 0,
-                "& .MuiDrawer-paper": {
-                    width: 260,
-                    boxSizing: "border-box",
-                    position: "fixed",
-                    height: "100vh",
+  return (
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      sx={{
+        width: 260,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: 260,
+          boxSizing: "border-box",
+          position: "fixed",
+          height: "100vh",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          height: 70,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="h6" fontWeight="bold">
+          Yerinde
+        </Typography>
+      </Box>
+
+      <Divider />
+
+      <List>
+        {sidebarItemsRoutes.map((item) => {
+          const Icon = item.icon;
+          const isActive = location.pathname === `/${item.routeKey}`;
+          return (
+            <ListItemButton
+              key={item.id}
+              selected={isActive}
+              onClick={() => navigate(`/${item.routeKey}`)}
+              sx={{
+                "&.Mui-selected": {
+                  backgroundColor: "#1976d2",
+                  color: "#fff",
                 },
-            }}
-        >
-            <Box
-                sx={{
-                    height: 70,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
+                "&.Mui-selected:hover": {
+                  backgroundColor: "#1565c0",
+                },
+              }}
             >
-                <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                >
-                    Yerinde
-                </Typography>
-            </Box>
+              <ListItemIcon>
+                <Icon />
+              </ListItemIcon>
 
-            <Divider />
-
-            <List>
-                {sidebarItemsRoutes.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                        <ListItemButton key={item.id} onClick={() => navigate(`/${item.routeKey}`)}>
-                            <ListItemIcon>
-                                <Icon />
-                            </ListItemIcon>
-
-                            <ListItemText primary={item.name} />
-                        </ListItemButton>
-                    );
-                })}
-            </List>
-        </Drawer>
-    );
+              <ListItemText primary={item.name} />
+            </ListItemButton>
+          );
+        })}
+      </List>
+    </Drawer>
+  );
 };
