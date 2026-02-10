@@ -45,7 +45,7 @@ export const Sidebar = () => {
 
       <Divider />
 
-      <List>
+      <List sx={{ p: 1 }}>
         {sidebarItemsRoutes.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === `/${item.routeKey}`;
@@ -55,6 +55,8 @@ export const Sidebar = () => {
               selected={isActive}
               onClick={() => navigate(`/${item.routeKey}`)}
               sx={{
+                mb: 1,
+                borderRadius: '8px',
                 "&.Mui-selected": {
                   backgroundColor: "#1976d2",
                   color: "#fff",
@@ -65,7 +67,7 @@ export const Sidebar = () => {
               }}
             >
               <ListItemIcon>
-                <Icon />
+                <Icon className={`${isActive && 'text-white'}`} />
               </ListItemIcon>
 
               <ListItemText primary={item.name} />
@@ -73,6 +75,6 @@ export const Sidebar = () => {
           );
         })}
       </List>
-    </Drawer>
+    </Drawer >
   );
 };
