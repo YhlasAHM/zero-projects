@@ -43,7 +43,6 @@ const LeaveRequestDetail = ({ data, onClose }) => {
       <Paper
         elevation={0}
         sx={{
-          backgroundColor: "#F3F4F6",
           borderRadius: 3,
           p: 3,
           mb: 3
@@ -155,7 +154,6 @@ const LeaveRequestDetail = ({ data, onClose }) => {
         <Paper
           elevation={0}
           sx={{
-            backgroundColor: "#F3F4F6",
             p: 2,
             borderRadius: 2
           }}

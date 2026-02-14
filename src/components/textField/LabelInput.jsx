@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
 
-const FieldLabel = ({ label, maxRows = 1, ...props }) => (
+const FieldLabel = ({ label, maxRows = 1, icon, ...props }) => (
   <Box sx={{ marginTop: 1 }}>
     <Typography fontSize={14} mb={0.5}>
       {label}
@@ -8,6 +8,11 @@ const FieldLabel = ({ label, maxRows = 1, ...props }) => (
     <TextField
       rows={maxRows}
       fullWidth
+      slotProps={{
+        input: {
+          endAdornment: icon ? icon : undefined,
+        },
+      }}
       size="small"
       multiline={maxRows > 1}
       {...props}

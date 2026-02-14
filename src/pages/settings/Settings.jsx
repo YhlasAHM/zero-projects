@@ -1,9 +1,10 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { PageTitle } from "../../components/pageTitle/pageTitle";
 import HeaderAppBar from "../../components/appBar/AppBar";
 import CompanyOverview from "./components/CompanyOverview";
 import ContactInformation from "./components/ContactInformation";
+import CompanyStructure from "./components/Structure";
 
 const CompanyStructureTab = () => (
     <Box py={4} textAlign="center">
@@ -19,7 +20,7 @@ const ContactInformationTab = () => (
 
 const TABS = [
     { label: "Company Overview", component: <CompanyOverview /> },
-    { label: "Company Structure", component: <CompanyStructureTab /> },
+    { label: "Company Structure", component: <CompanyStructure /> },
     { label: "Contact Information", component: <ContactInformation /> },
 ];
 
@@ -61,9 +62,9 @@ const SettingsPage = () => {
                 </Tabs>
             </HeaderAppBar>
 
-            <Box sx={{ p: 3 }} bgcolor={'#fff'}>
+            <Paper sx={{ p: 3 }}>
                 {TABS[tab].component}
-            </Box>
+            </Paper>
         </Box>
     );
 };

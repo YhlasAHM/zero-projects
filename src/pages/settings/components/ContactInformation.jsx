@@ -54,8 +54,6 @@ const ContactInformation = () => {
             borderRadius: 1.5,
             px: 3,
             fontWeight: 600,
-            bgcolor: "#1a2b4a",
-            "&:hover": { bgcolor: "#243560" },
           }}
         >
           Save Changes

@@ -4,7 +4,7 @@ import FieldLabel from "../../../components/textField/LabelInput";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import EventIcon from "@mui/icons-material/Event";
 import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
-
+import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 const CreateTask = ({ onClose }) => {
   return (
     <Box p={3}>
@@ -28,7 +28,7 @@ const CreateTask = ({ onClose }) => {
 
       <FieldLabel label="Task title" />
       <FieldLabel maxRows={5} label="Description" />
-      <FieldLabel label="Comment" />
+      <FieldLabel label="Comment" icon={<AttachFileOutlinedIcon/>}/>
 
       <Box mt={4} display={'flex'} gap={2}>
         <Button variant="outlined">TO DO</Button>

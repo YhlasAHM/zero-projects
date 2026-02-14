@@ -82,54 +82,54 @@ const AnnouncementsPage = () => {
                     <Tab label="Draft" />
                 </Tabs>
             </HeaderAppBar>
-
-            {/* Table */}
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Author</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Target Audience</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Read Stats</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody sx={{ bgcolor: '#fff' }}>
-                    {filteredAnnouncements.map((item) => (
-                        <TableRow key={item.id}>
-                            <TableCell>{item.title}</TableCell>
-                            <TableCell>{item.author}</TableCell>
-                            <TableCell>{item.date}</TableCell>
-                            <TableCell>{item.audience}</TableCell>
-                            <TableCell>
-                                <Chip
-                                    label={item.status}
-                                    size="small"
-                                    sx={{
-                                        backgroundColor: statusColors[item.status].bg,
-                                        color: statusColors[item.status].color,
-                                        fontWeight: 500,
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell>{item.read}</TableCell>
-                            <TableCell>
-                                <IconButton size="small"><VisibilityIcon /></IconButton>
-                                <IconButton size="small"
-                                    onClick={() => {
-                                        setSelectedAnnouncement(item);
-                                        setModal(true);
-                                    }}
-                                ><EditIcon /></IconButton>
-                                <IconButton size="small"><DeleteIcon /></IconButton>
-                            </TableCell>
+            <Paper>
+                {/* Table */}
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Title</TableCell>
+                            <TableCell>Author</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Target Audience</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Read Stats</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-
+                    </TableHead>
+                    <TableBody>
+                        {filteredAnnouncements.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{item.title}</TableCell>
+                                <TableCell>{item.author}</TableCell>
+                                <TableCell>{item.date}</TableCell>
+                                <TableCell>{item.audience}</TableCell>
+                                <TableCell>
+                                    <Chip
+                                        label={item.status}
+                                        size="small"
+                                        sx={{
+                                            backgroundColor: statusColors[item.status].bg,
+                                            color: statusColors[item.status].color,
+                                            fontWeight: 500,
+                                        }}
+                                    />
+                                </TableCell>
+                                <TableCell>{item.read}</TableCell>
+                                <TableCell>
+                                    <IconButton size="small"><VisibilityIcon /></IconButton>
+                                    <IconButton size="small"
+                                        onClick={() => {
+                                            setSelectedAnnouncement(item);
+                                            setModal(true);
+                                        }}
+                                    ><EditIcon /></IconButton>
+                                    <IconButton size="small"><DeleteIcon /></IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
             <GlobalModal
                 open={isModal}
                 onClose={() => {

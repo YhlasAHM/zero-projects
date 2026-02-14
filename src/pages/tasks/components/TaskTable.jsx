@@ -4,14 +4,14 @@ import {
   CardContent,
   Chip,
   IconButton,
+  Paper,
   Typography,
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-const TaskTable = () => {
-  // Mock data - gerçek verilerinizle değiştirebilirsiniz
+const TaskTable = ({ onOpen }) => {
   const tasks = [
     {
       id: 1,
@@ -60,7 +60,7 @@ const TaskTable = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#fff", padding: 2.5, mt: 2, borderRadius: 3 }}>
+    <Paper sx={{ padding: 2.5, mt: 2, borderRadius: 3 }}>
       <Box sx={{ mb: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, ml: 1 }}>
           <Box>
@@ -69,7 +69,7 @@ const TaskTable = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ color: "#666", fontSize: "14px" }}
+              sx={{ fontSize: "14px" }}
             >
               {tasks.length} tasks
             </Typography>
@@ -105,7 +105,6 @@ const TaskTable = () => {
                       fontWeight: 600,
                       fontSize: "18px",
                       mb: 1,
-                      color: "#1a1a1a",
                     }}
                   >
                     {task.title}
@@ -113,7 +112,6 @@ const TaskTable = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "#666",
                       mb: 2,
                       lineHeight: 1.6,
                     }}
@@ -156,7 +154,6 @@ const TaskTable = () => {
                         display: "flex",
                         alignItems: "center",
                         gap: 0.5,
-                        color: "#666",
                       }}
                     >
                       <CalendarTodayIcon sx={{ fontSize: "16px" }} />
@@ -170,37 +167,18 @@ const TaskTable = () => {
                 <Box sx={{ display: "flex", gap: 0.5, ml: 2 }}>
                   <IconButton
                     size="small"
-                    sx={{
-                      color: "#666",
-                      "&:hover": {
-                        backgroundColor: "#f5f5f5",
-                        color: "#1976D2",
-                      },
-                    }}
+                    onClick={onOpen}
                   >
                     <VisibilityOutlinedIcon fontSize="small" />
                   </IconButton>
                   <IconButton
                     size="small"
-                    sx={{
-                      color: "#666",
-                      "&:hover": {
-                        backgroundColor: "#f5f5f5",
-                        color: "#1976D2",
-                      },
-                    }}
+
                   >
-                    <EditOutlinedIcon fontSize="small" />
+                    <BorderColorOutlinedIcon fontSize="small" />
                   </IconButton>
                   <IconButton
                     size="small"
-                    sx={{
-                      color: "#666",
-                      "&:hover": {
-                        backgroundColor: "#ffebee",
-                        color: "#d32f2f",
-                      },
-                    }}
                   >
                     <DeleteOutlineIcon fontSize="small" />
                   </IconButton>
@@ -210,7 +188,7 @@ const TaskTable = () => {
           </Card>
         ))}
       </Box>
-    </Box>
+    </Paper>
   );
 };
 

@@ -94,10 +94,9 @@ export default function LeaveTable({ onView }) {
   return (
     <TableContainer
       component={Paper}
-      sx={{ bgcolor: '#fff' }}
     >
       <Table>
-        <TableHead sx={{ backgroundColor: "#F9FAFB" }}>
+        <TableHead>
           <TableRow>
             <TableCell><b>Employee</b></TableCell>
             <TableCell><b>Department</b></TableCell>
@@ -115,11 +114,6 @@ export default function LeaveTable({ onView }) {
             <TableRow
               key={index}
               hover
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#F3F4F6"
-                }
-              }}
             >
               <TableCell>
                 <Box>

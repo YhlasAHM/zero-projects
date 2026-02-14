@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material"
+import { Box, Divider, Paper } from "@mui/material"
 import { PageTitle } from "../../components/pageTitle/pageTitle";
 import Header from "./components/Header";
 import RequestCard from "./components/LetterTable";
@@ -58,8 +58,8 @@ const LetterRequestsPage = () => {
             />
             <Header />
             <Divider />
-            <Box sx={{
-                backgroundColor: '#fff', padding: 3, overflow: 'auto', height: "calc(100vh - 367px)"
+            <Paper sx={{
+             padding: 3, overflow: 'auto', height: "calc(100vh - 367px)"
             }}>
                 {requests.map((request) => (
                     <RequestCard
@@ -75,7 +75,7 @@ const LetterRequestsPage = () => {
                         onViewDetails={() => setSelectedRow(request)}
                     />
                 ))}
-            </Box>
+            </Paper>
             <TablePaginationInfo />
 
             <GlobalModal

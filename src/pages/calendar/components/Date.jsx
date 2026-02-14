@@ -101,7 +101,7 @@ const DateSelect = () => {
   }
 
   const [currentDate, setCurrentDate] = useState(new Date(2026, 0, 1));
-  const [view, setView] = useState("month");
+  // const [view, setView] = useState("month");
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -133,7 +133,7 @@ const DateSelect = () => {
     month === today.getMonth() &&
     year === today.getFullYear();
 
-  const legendItems = [
+  const _legendItems = [
     { type: "publicHoliday" },
     { type: "companyEvent" },
     { type: "departmentEvent" },

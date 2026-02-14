@@ -53,7 +53,7 @@ const CompanyOverview = () => {
   };
 
   return (
-    <Box width={'full'} bgcolor={'#fff'}>
+    <Box>
       {/* ── Logo Section ── */}
       <Paper
         variant="outlined"
@@ -157,9 +157,7 @@ const CompanyOverview = () => {
             textTransform: "none",
             borderRadius: 1.5,
             px: 3,
-            fontWeight: 600,
-            bgcolor: "#1a2b4a",
-            "&:hover": { bgcolor: "#243560" },
+            fontWeight: 600
           }}
         >
           Save Changes

@@ -106,14 +106,13 @@ const LetterContent = ({ data, onClose }) => {
 
       {/* Message */}
       <Box mb={3}>
-        <Typography fontSize={13} color="text.secondary" mb={1}>
+        <Typography fontSize={13}  mb={1}>
           Message
         </Typography>
 
         <Paper
           elevation={0}
           sx={{
-            backgroundColor: "#F3F4F6",
             p: 2,
             borderRadius: 2
           }}

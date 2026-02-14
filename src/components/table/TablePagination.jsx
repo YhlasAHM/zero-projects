@@ -1,14 +1,13 @@
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Pagination, Typography, Paper } from "@mui/material";
 
 export default function TablePaginationInfo({ total }) {
   return (
-    <Box
+    <Paper
       sx={{
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         p: 2,
-        backgroundColor: '#fff',
         borderRadius: '0 0 10px 10px'
       }}
     >
@@ -16,6 +15,6 @@ export default function TablePaginationInfo({ total }) {
         Showing {total} of {total} employees
       </Typography>
       <Pagination count={3} page={1} />
-    </Box>
+    </Paper>
   );
 }

@@ -8,7 +8,7 @@ export const themeConfig = createTheme({
         light: {
             palette: {
                 mode: "light",
-                primary: { main: "#2563EB" },
+                primary: { main: "#1a2b4a" },
                 background: { default: "#ffffff", paper: "#ffffff", secondary: "#ffffff" },
                 text: { primary: "#333333", secondary: "#555555" },
             }
@@ -18,7 +18,7 @@ export const themeConfig = createTheme({
                 mode: "dark",
                 primary: { main: "#ffffff" },
                 background: { default: "#2F4B71", paper: "#2F4B71", secondary: "#516988" },
-                text: { primary: "#ffffff", secondary: "#bbbbbb" },
+                text: { primary: "#ffffff", secondary: "#fff" },
             }
         }
     }
