@@ -9,10 +9,12 @@ import StatusChip from "../../components/table/StatusChip";
 import { useState } from "react";
 import GlobalModal from "../../components/modal/GlobalModal";
 import EditAttendance from "./components/EditAttendanceContent";
+import AttendanceDetailsContent from "./AttendanceDetail";
 
 const AttendancePage = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [openViewModal, setOpenViewModal] = useState(false);
 
   const rows = [
     {
@@ -53,26 +55,36 @@ const AttendancePage = () => {
       label: "Actions",
       render: (row) => (
         <TableActions
+          onView={() => {
+            setSelectedRow(row);
+            setOpenViewModal(true);
+          }}
           onEdit={() => {
             setSelectedRow(row);
             setOpenEditModal(true);
           }}
         />
       ),
-    },
+    }
+
   ];
 
   return (
     <Box className="attendance">
-      <PageTitle
-        title="Attendance Report"
-        subTitle="Track and manage employee attendance records"
-      />
+      {openViewModal ?
+        <AttendanceDetailsContent employee={selectedRow} />
+        :
 
-      <Header />
-      <GlobalTable columns={columns} rows={rows} />
-      <TablePaginationInfo total={12} />
-
+        <>
+          <PageTitle
+            title="Attendance Report"
+            subTitle="Track and manage employee attendance records"
+          />
+          <Header />
+          <GlobalTable columns={columns} rows={rows} />
+          <TablePaginationInfo total={12} />
+        </>
+      }
       <GlobalModal
         open={openEditModal}
         onClose={() => setOpenEditModal(false)}

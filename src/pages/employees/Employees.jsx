@@ -9,9 +9,12 @@ import StatusChip from "../../components/table/StatusChip";
 import TableActions from "../../components/table/TableActions";
 import GlobalModal from "../../components/modal/GlobalModal";
 import AddEmployeeContent from "./components/AddEmployeeContent";
+import ViewEmployeeWeek from "./components/EmployeeDetailWeek";
 
 const EmployeesPage = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openViewModal, setOpenViewModal] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const rows = [
     {
@@ -43,28 +46,36 @@ const EmployeesPage = () => {
     {
       key: "actions",
       label: "Actions",
-      render: () => (
+      render: (row) => (
         <TableActions
-          onView={() => console.log("view")}
+          onView={() => {
+            setSelectedEmployee(row);
+            setOpenViewModal(true);
+          }}
           onEdit={() => console.log("edit")}
           onDelete={() => console.log("delete")}
         />
       ),
-    },
+    }
+
   ];
 
   return (
     <Box className="employees">
-      <PageTitle
-        title="Employee"
-        subTitle="Manage employee information and profiles"
-      />
 
-      <Header onAddClick={() => setOpenAddModal(true)} />
-
-      <GlobalTable columns={columns} rows={rows} />
-      <TablePaginationInfo total={12} />
-
+      {openViewModal ?
+        <ViewEmployeeWeek employee={selectedEmployee} />
+        :
+        <>
+          <PageTitle
+            title="Employee"
+            subTitle="Manage employee information and profiles"
+          />
+          <Header onAddClick={() => setOpenAddModal(true)} />
+          <GlobalTable columns={columns} rows={rows} />
+          <TablePaginationInfo total={12} />
+        </>
+      }
       <GlobalModal
         open={openAddModal}
         onClose={() => setOpenAddModal(false)}
