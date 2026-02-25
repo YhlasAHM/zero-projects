@@ -1,4 +1,3 @@
-
 import { Box } from "@mui/material"
 
 export const SponsorItem = ({ image_url }) => {

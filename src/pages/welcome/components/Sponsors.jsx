@@ -22,7 +22,7 @@ export const Sponsors = () => {
         }}>
         {
           Array.from({ length: 6 }).map((index) => (
-            <Box key={index} className=' w-1/3 p-2 '>
+            <Box key={index} className=' w-1/3 p-5 '>
               <SponsorItem image_url={sponsorImage} />
             </Box>
           ))

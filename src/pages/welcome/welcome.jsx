@@ -111,77 +111,23 @@ const Welcome = () => {
                 <VideoSection />
                 <Box mb={10}></Box>
                 <Sponsors />
+                <Box mb={10}></Box>
             </Box>
-
-            {/* VIDEO SECTION */}
-            < Box sx={{ py: 10, backgroundColor: "#f5f7fa" }}>
-                <Container>
-                    <Typography
-                        variant="h4"
-                        fontWeight={700}
-                        align="center"
-                        gutterBottom
-                    >
-                        Programmanyň nähili işleýändigini öwreniň
-                    </Typography>
-
-                    <Paper
-                        elevation={4}
-                        sx={{
-                            height: 250,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: 4,
-                            mt: 4,
-                        }}
-                    >
-                        <PlayArrowIcon sx={{ fontSize: 60 }} />
-                    </Paper>
-                </Container>
-            </Box >
-
-            {/* SPONSORS */}
-            < Container sx={{ py: 10 }}>
-                <Typography
-                    variant="h4"
-                    fontWeight={700}
-                    align="center"
-                    gutterBottom
-                >
-                    Biziň hyzmatdaşlarymyz
-                </Typography>
-
-                <Grid container spacing={4} mt={3}>
-                    {["Google", "Amazon", "Google", "Amazon"].map((item, i) => (
-                        <Grid item xs={6} md={3} key={i}>
-                            <Paper
-                                elevation={2}
-                                sx={{
-                                    py: 4,
-                                    textAlign: "center",
-                                    borderRadius: 3,
-                                }}
-                            >
-                                <Typography variant="h6">{item}</Typography>
-                            </Paper>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container >
 
             {/* CONTACT */}
             < Box sx={{ py: 10, backgroundColor: "#0d1b2a" }}>
                 <Container maxWidth="sm">
                     <Typography
-                        variant="h4"
-                        fontWeight={700}
+                        sx={{ fontSize: '40px' }}
+                        fontWeight={800}
                         align="center"
                         color="white"
                         gutterBottom
                     >
-                        Habarlasma
+                        Habarlaşmak
                     </Typography>
+
+                    <Typography variant="body1" className="text-white text-center" mb={5}> Soraglaryňyz bar bolsa bize ýazyň  </Typography>
 
                     <Paper sx={{ p: 4, borderRadius: 4 }}>
                         <Box component="form" display="flex" flexDirection="column" gap={2}>
