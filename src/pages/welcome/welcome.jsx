@@ -4,12 +4,9 @@ import {
     Typography,
     Button,
     Container,
-    Grid,
     Box,
-    TextField,
     Paper,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Banner } from "./components/Banner";
 
 import logo from '../../assets/logo/logo.png'
@@ -19,6 +16,8 @@ import { About } from "./components/About";
 import MobileDownload from "./components/MobileDownload";
 import { VideoSection } from "./components/VideoSection";
 import { Sponsors } from './components/Sponsors'
+import FieldLabel from "../../components/textField/LabelInput";
+import Footer from "./components/Footer";
 
 const Welcome = () => {
     return (
@@ -131,13 +130,15 @@ const Welcome = () => {
 
                     <Paper sx={{ p: 4, borderRadius: 4 }}>
                         <Box component="form" display="flex" flexDirection="column" gap={2}>
-                            <TextField label="Adyňyz" fullWidth />
-                            <TextField label="Email" fullWidth />
-                            <TextField label="Telefon" fullWidth />
-                            <TextField label="Tema" fullWidth />
-                            <TextField label="Habar" multiline rows={4} fullWidth />
+                            <form>
+                                <FieldLabel label={'Adyňyz'} />
+                                <FieldLabel label={'Email'} />
+                                <FieldLabel label={'Telefon belgi'} />
+                                <FieldLabel label={'Tema'} />
+                                <FieldLabel label={'Habar'} multiline rows={4} />
+                            </form>
 
-                            <Button variant="contained" size="large">
+                            <Button variant="contained" size="large" sx={{ textTransform: 'none' }}>
                                 Ibermek
                             </Button>
                         </Box>
@@ -145,14 +146,7 @@ const Welcome = () => {
                 </Container>
             </Box >
 
-            {/* FOOTER */}
-            < Box sx={{ py: 4, backgroundColor: "#08121c" }}>
-                <Container>
-                    <Typography align="center" color="white">
-                        © 2025 Yerinde. Ähli hukuklar goralan.
-                    </Typography>
-                </Container>
-            </Box >
+            <Footer />
         </>
     );
 };
