@@ -26,7 +26,7 @@ export default function EditEmployeeContent({ onClose }) {
           alignItems: "center",
         }}
       >
-        <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>Add New Employee</Typography>
+        <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>Update Employee</Typography>
         <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
@@ -116,7 +116,7 @@ export default function EditEmployeeContent({ onClose }) {
         <Button variant="outlined" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="contained">Add Employee</Button>
+        <Button variant="contained">Update Employee</Button>
       </Box>
     </Box>
   );

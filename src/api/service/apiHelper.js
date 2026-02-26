@@ -73,12 +73,11 @@ export const api = {
   },
   // Put private
   putPrivate: async (url, data) => {
-    const token = 'Bearer ' + getAccessToken();
     const config = {
       ...privateConfig,
       headers: {
         ...privateConfig.headers,
-        Authorization: token
+        Authorization: getAccessToken()
       },
     };
     const res = await axiosInstance.put(url, { ...data }, { ...config });

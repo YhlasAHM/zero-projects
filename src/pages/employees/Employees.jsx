@@ -22,7 +22,7 @@ const EmployeesPage = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [filters, setFilter] = useState({
     department_id: "",
-    status: "",
+    job_id: "",
     search: ""
   });
 

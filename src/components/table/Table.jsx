@@ -12,7 +12,7 @@ export default function GlobalTable({ columns, rows = [] }) {
   return (
     <TableContainer component={Paper} elevation={0}>
       <Table>
-        <TableHead>
+        <TableHead sx={{bgcolor: '#dee1ec'}}>
           <TableRow>
             {columns.map((col) => (
               <TableCell key={col.key}>

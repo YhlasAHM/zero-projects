@@ -1,18 +1,46 @@
-import { TextField } from "@mui/material";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-export default function HeaderSearch({ value, onChange }) {
+import ClearIcon from "@mui/icons-material/Clear";
+import { useState } from "react";
+
+export default function HeaderSearch({ value, onSearch }) {
+  const [inputValue, setInputValue] = useState(value || "");
+  const handleSearch = () => {
+    onSearch(inputValue);
+  };
+
+  const handleClear = () => {
+    setInputValue("");
+    onSearch("");
+  };
+
   return (
     <TextField
       size="small"
-      value={value}
-      onChange={onChange}
-      //   placeholder={placeholder || ""}
-      slotProps={{
-        input: {
-          startAdornment: <SearchIcon position="start" />,
-        },
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          handleSearch();
+        }
       }}
       sx={{ width: "100%" }}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <IconButton onClick={handleSearch}>
+              <SearchIcon />
+            </IconButton>
+          </InputAdornment>
+        ),
+        endAdornment: inputValue ? (
+          <InputAdornment position="end">
+            <IconButton onClick={handleClear}>
+              <ClearIcon />
+            </IconButton>
+          </InputAdornment>
+        ) : null,
+      }}
     />
   );
 }

@@ -18,11 +18,25 @@ export const getAllComplexApi = async () => {
  */
 import { api } from "../service/apiHelper";
 
-export const getAllEmployee = ({ page, limit, department_id, status, search }) =>
-  api.getPrivate("/employees/get-all", {
-    page, limit, department_id, status, search
+export const getAllEmployee = ({ page, limit, department_id, job_id, search }) =>
+  api.getPrivate("/company-service/employees/get-all", {
+    page, limit, department_id, job_id, search
   });
 
 export const getAllDepartment = async () => {
-  return await api.getPrivate('/departments/get-all');
+  return await api.getPrivate('/company-service/departments/get-all');
 };
+
+export const getAllJobs = async (department_id) => {
+  return await api.getPrivate('/company-service/jobs/get-all', {
+    department_id
+  });
+};
+
+export const getAllAttendance = ({ date, department_ids, status, search }) =>
+  api.getPrivate("/company-service/attendances/get-by-date", {
+    date, department_ids, status, search
+  });
+
+export const getEmployeeImage = (employee_id) =>
+  api.getPrivate(`/storage-service/attendances/${employee_id}`);
