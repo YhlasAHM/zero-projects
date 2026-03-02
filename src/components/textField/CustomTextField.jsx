@@ -12,7 +12,7 @@ const CustomFormTextField = ({ control, errors, name, label, errorTitle = false,
   const errorMessage = getErrorMessage(errors, name);
 
   return (
-    <Box className="relative">
+    <Box className="relative" mt={2}>
       <Typography fontSize={13} mb={0.5}>{label}</Typography>
       <Controller
         name={name}

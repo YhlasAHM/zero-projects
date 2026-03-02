@@ -1,157 +1,127 @@
-import {
-  Box,
-  Typography,
-  Divider,
-  IconButton,
-  Button,
-  Grid
-} from "@mui/material";
+import { Box, Typography, Divider, IconButton, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import FieldLabel from "../../../components/textField/LabelInput";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { CustomForm } from "../../../components/form/CustomForm";
+import { useAppMutation } from "../../../hooks/useMutation";
+import { announcementAdd } from "../../../api/queries/post";
+import { updateAnnouncement } from "../../../api/queries/put";
+import CustomFormTextField from "../../../components/textField/CustomTextField";
+import CustomFormSelect from "../../../components/select/CustomFormSelect";
 
 const AnnouncementContent = ({ onClose, data }) => {
   const isEdit = Boolean(data);
-
-  const [form, setForm] = useState({
-    title: "",
-    audience: "",
-    publish: "",
-    employees: "",
-    sections: "",
-    tasks: "",
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      department_ids: [0],
+      position_ids: [0],
+      status: data?.Status || "",
+      target_audience: data?.TargetAudience || "",
+      text: data?.Text || "",
+    },
+    // resolver: yupResolver(AnnouncementValid),
+    mode: "onSubmit",
   });
 
-  // ✅ Edit mode'da form doldur
-  useEffect(() => {
-    if (data) {
-      setForm({
-        title: data.title || "",
-        audience: data.audience || "",
-        publish: data.publish || "",
-        employees: data.employees || "",
-        sections: data.sections || "",
-        tasks: data.tasks || "",
-      });
-    } else {
-      // Add mode reset
-      setForm({
-        title: "",
-        audience: "",
-        publish: "",
-        employees: "",
-        sections: "",
-        tasks: "",
-      });
-    }
-  }, [data]);
+  const mutation = useAppMutation({
+    mutationFn: isEdit ? updateAnnouncement : announcementAdd,
+    queryKey: ["announcements"],
+    onSuccess: () => {
+      onClose();
+    },
+  });
 
-  // ✅ Controlled input handler
-  const handleChange = (field) => (event) => {
-    setForm((prev) => ({
-      ...prev,
-      [field]: event.target.value,
-    }));
-  };
-
-  const handleSubmit = () => {
+  const submitHandler = async (formData) => {
     if (isEdit) {
-      console.log("UPDATE:", form);
+      await mutation.mutateAsync({
+        id: data.ID || data.id, 
+        objectData: formData, 
+      });
     } else {
-      console.log("CREATE:", form);
+      await mutation.mutateAsync(formData);
     }
-
-    onClose();
   };
+
+  const statusOptions = [
+    { value: "publish", label: "Publish" },
+    { value: "draft", label: "Draft" },
+  ];
+
+  const targetOptions = [{ value: "all_employees", label: "all_employees" }];
 
   return (
     <Box p={3}>
-      {/* Header */}
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={2}
-      >
-        <Typography fontSize={18} fontWeight={600}>
-          {isEdit ? "Edit Announcement" : "New Announcement"}
-        </Typography>
+      <CustomForm handleSubmit={handleSubmit(submitHandler)}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <Typography fontSize={18} fontWeight={600}>
+            {isEdit ? "Edit Announcement" : "New Announcement"}
+          </Typography>
 
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </Box>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
 
-      <Divider sx={{ mb: 2 }} />
+        <Divider sx={{ mb: 2 }} />
 
-      {/* Form */}
-      <Grid container spacing={2}>
-        <Grid size={6}>
-          <FieldLabel
-            label="Title"
-            value={form.title}
-            onChange={handleChange("title")}
+        <CustomFormTextField
+          control={control}
+          errors={errors}
+          name="text"
+          rowNum={4}
+          className="w-full"
+          label={"Text"}
+        />
+
+        <Box display={"flex"} gap={4}>
+          <CustomFormSelect
+            name="target_audience"
+            label="target_audience"
+            control={control}
+            errors={errors}
+            options={targetOptions}
           />
-        </Grid>
-
-        <Grid size={6}>
-          <FieldLabel
-            label="Target Audience"
-            value={form.audience}
-            onChange={handleChange("audience")}
+          <CustomFormSelect
+            name="status"
+            label="Status"
+            control={control}
+            errors={errors}
+            options={statusOptions}
           />
-        </Grid>
+        </Box>
+        <Box
+          sx={{
+            pt: 3,
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 1,
+          }}
+        >
+          <Button variant="outlined" onClick={onClose}>
+            Cancel
+          </Button>
 
-        <Grid size={6}>
-          <FieldLabel
-            label="Publish"
-            value={form.publish}
-            onChange={handleChange("publish")}
-          />
-        </Grid>
-
-        <Grid size={6}>
-          <FieldLabel
-            label="All Employees"
-            value={form.employees}
-            onChange={handleChange("employees")}
-          />
-        </Grid>
-
-        <Grid size={6}>
-          <FieldLabel
-            label="Sections"
-            value={form.sections}
-            onChange={handleChange("sections")}
-          />
-        </Grid>
-
-        <Grid size={6}>
-          <FieldLabel
-            label="Tasks"
-            value={form.tasks}
-            onChange={handleChange("tasks")}
-          />
-        </Grid>
-      </Grid>
-
-      {/* Footer */}
-      <Box
-        sx={{
-          pt: 3,
-          display: "flex",
-          justifyContent: "flex-end",
-          gap: 1,
-        }}
-      >
-        <Button variant="outlined" onClick={onClose}>
-          Cancel
-        </Button>
-
-        <Button variant="contained" onClick={handleSubmit}>
-          {isEdit ? "Update" : "Add Announcement"}
-        </Button>
-      </Box>
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={mutation.isPending}
+          >
+            {mutation.isPending
+              ? "Saving..."
+              : isEdit
+                ? "Update"
+                : "Add Announcement"}
+          </Button>
+        </Box>
+      </CustomForm>
     </Box>
   );
 };

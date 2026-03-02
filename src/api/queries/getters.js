@@ -18,10 +18,10 @@ export const getAllComplexApi = async () => {
  */
 import { api } from "../service/apiHelper";
 
-export const getAllEmployee = ({ page, limit, department_id, job_id, search }) =>
-  api.getPrivate("/company-service/employees/get-all", {
+export const getAllEmployee = async ({ page, limit, department_id, job_id, search }) =>{
+ return await api.getPrivate("/company-service/employees/get-all", {
     page, limit, department_id, job_id, search
-  });
+})};
 
 export const getAllDepartment = async () => {
   return await api.getPrivate('/company-service/departments/get-all');
@@ -54,3 +54,16 @@ export const getLeavesAll = async ({ page, limit, status, type }) => {
 export const getLeavesById = async (id) => {
   return await api.getPrivate(`/company-service/leaves/get/${id}`)
 };
+
+export const getAllDocuments = async ({ page, limit, search }) =>{
+ return await api.getPrivate("/company-service/documents/get-all", {
+    page, limit, search
+})};
+
+export const getAllAnnouncement = async ({ page, limit, status }) =>{
+ return await api.getPrivate("/company-service/announcements/get-all", {
+    page, limit, status
+})};
+
+export const getAnnouncementById = async (id) =>{
+ return await api.getPrivate("/company-service/announcements/get/" + id)};

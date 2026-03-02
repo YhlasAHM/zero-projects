@@ -1,41 +1,48 @@
-import { useState } from "react";
 import { Box, MenuItem } from "@mui/material";
 import DebounceSelect from "../../../components/select/DebounceSelect";
 import HeaderAppBar from "../../../components/appBar/AppBar";
 
+const Header = ({ setFilter, filters }) => {
+  const AllTypes = [
+    { value: "annual", label: "Annual" },
+    { value: "slick", label: "Slick" },
+    { value: "unpaid", label: "Unpaid" },
+  ];
 
-const Header = ({ onAddClick }) => {
-  const [department, setDepartment] = useState("");
-  const [employee, setEmployee] = useState("");
-  const [search, setSearch] = useState("");
+  const AllStatus = [
+    { value: "pending", label: "Pending" },
+    { value: "approved", label: "Approved" },
+  ];
 
   return (
     <HeaderAppBar>
-      <Box width={'50%'} display={'flex'} gap={4}>
+      <Box width={"100%"} display={"flex"} gap={4} p={2}>
         <DebounceSelect
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          displayEmpty
+          label="Type"
+          value={filters.type || ""}
+          onChange={(e) => setFilter({ ...filters, type: e.target.value })}
+          onClear={() => setFilter({ ...filters, type: "" })}
         >
-          <MenuItem value="" disabled>
-            All status
-          </MenuItem>
-          <MenuItem value={1}>IT</MenuItem>
-          <MenuItem value={2}>HR</MenuItem>
+          {AllTypes?.map((e) => (
+            <MenuItem key={e.value} value={e.value}>
+              {e.label}
+            </MenuItem>
+          ))}
         </DebounceSelect>
 
         <DebounceSelect
-          value={employee}
-          onChange={(e) => setEmployee(e.target.value)}
-          displayEmpty
+          label="Status"
+          value={filters.status || ""}
+          onChange={(e) => setFilter({ ...filters, status: e.target.value })}
+          onClear={() => setFilter({ ...filters, status: "" })}
         >
-          <MenuItem value="" disabled>
-            All types
-          </MenuItem>
-          <MenuItem value={1}>John</MenuItem>
-          <MenuItem value={2}>Jane</MenuItem>
+          {AllStatus?.map((e) => (
+            <MenuItem key={e.value} value={e.value}>
+              {e.label}
+            </MenuItem>
+          ))}
         </DebounceSelect>
-      </Box>  
+      </Box>
     </HeaderAppBar>
   );
 };

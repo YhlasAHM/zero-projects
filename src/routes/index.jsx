@@ -93,14 +93,14 @@ const routes = createBrowserRouter(
         </PageWrapper>
       ),
     },
-    {
-      path: "/letterRequests",
-      element: (
-        <PageWrapper>
-          <LetterRequestsPage />
-        </PageWrapper>
-      ),
-    },
+    // {
+    //   path: "/letterRequests",
+    //   element: (
+    //     <PageWrapper>
+    //       <LetterRequestsPage />
+    //     </PageWrapper>
+    //   ),
+    // },
     {
       path: "/announcements",
       element: (

@@ -7,7 +7,7 @@ export const useInfiniteGet = ({
   limit = 10,
   filters = {},
   enabled = true,
-  dataKey = "leaves",
+  dataKey = "data",
   countKey = "count"
 }) => {
   const lastFetchRef = useRef(0);
@@ -41,7 +41,7 @@ export const useInfiniteGet = ({
     },
   });
   const flatData = useMemo(() => {
-    return data?.pages.flatMap((page) => page?.data?.data?.[dataKey] ?? []) ?? [];
+    return data?.pages.flatMap((page) =>  page?.data?.data?.[dataKey] ? page?.data?.data?.[dataKey] : page?.data?.data ) ?? [];
   }, [data, dataKey]);
 
   const totalCount = data?.pages?.[0]?.data?.data?.[countKey] ?? 0;

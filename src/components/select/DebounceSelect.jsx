@@ -12,30 +12,32 @@ export default function DebounceSelect({
   value,
   onChange,
   onClear,
-  placeholder,
+  label, // placeholder yerine label kullanmak MUI standartlarına daha uygun
   ...props
 }) {
-  const label = placeholder || "Department";
   const hasValue = value !== "" && value !== null && value !== undefined;
+  const labelId = `select-label-${label?.replace(/\s/g, "")}`;
+
   return (
     <FormControl size="small" sx={{ width: "100%" }} variant="outlined">
-      <InputLabel id="select-label">
+      {/* Label'ın border üzerinde boşluk açması için InputLabel şarttır */}
+      <InputLabel id={labelId} shrink={hasValue || props.displayEmpty}>
         {label}
       </InputLabel>
 
       <Select
-        labelId="select-label"
+        labelId={labelId}
         value={value}
         onChange={onChange}
-        label={label}
+        label={label} // Border'daki boşluğu (notch) bu sağlar
         endAdornment={
           hasValue ? (
-            <InputAdornment position="end" sx={{ mr: 2 }}>
+            <InputAdornment position="end" sx={{ mr: 2, position: 'absolute', right: '20px' }}>
               <IconButton
                 size="small"
                 onClick={(e) => {
                   e.stopPropagation();
-                  onClear?.();
+                  onClear?.(); // Temizleme fonksiyonunu tetikler
                 }}
               >
                 <ClearIcon fontSize="small" />

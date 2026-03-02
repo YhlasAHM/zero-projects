@@ -17,3 +17,8 @@ export const updateLeaves = async (objectData) => {
   const response = await api.putPrivate(`/company-service/leaves/update`, objectData);
   return response;
 };
+
+export const updateAnnouncement = async ({id, objectData}) => {
+  const response = await api.putPrivate(`/company-service/announcements/update/${id}`, objectData);
+  return response;
+};

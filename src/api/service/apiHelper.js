@@ -60,12 +60,11 @@ export const api = {
   },
   // Post private
   postPrivate: async (url, data) => {
-    const token = 'Bearer ' + getAccessToken();
     const config = {
       ...privateConfig,
       headers: {
         ...privateConfig.headers,
-        "Authorization": token,
+        "Authorization": getAccessToken(),
       },
     };
     const res = await axiosInstance.post(url, { ...data }, { ...config });
@@ -85,12 +84,11 @@ export const api = {
   },
   //Patch
   patchPrivate: async (url, data) => {
-    const token = 'Bearer ' + getAccessToken();
     const config = {
       ...privateConfig,
       headers: {
         ...privateConfig.headers,
-        Authorization: token,
+        Authorization: getAccessToken(),
       },
     };
     const res = await axiosInstance.patch(url, { ...data }, { ...config });

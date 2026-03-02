@@ -16,6 +16,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import GlobalModal from "../../../components/modal/GlobalModal";
 import CreateScheduleModalContent from "./AddWeekContent";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 const schedule = [
   {
@@ -85,12 +87,9 @@ const schedule = [
 
 export default function EmployeeView({ employee }) {
   const [openAddModal, setOpenAddModal] = useState(false);
-  if (!employee) return null;
-
+  console.log(employee);
   return (
     <Box p={3}>
-
-      {/* HEADER */}
       <Paper
         elevation={0}
         sx={{
@@ -102,23 +101,38 @@ export default function EmployeeView({ employee }) {
       >
         <Stack direction="row" spacing={2} alignItems="center">
           <Avatar
-            src={employee.avatar}
+            src={
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkiIFjCOZ-mMeqxd2ryrneiHedE8G9S0AboA&s"
+            }
             sx={{ width: 56, height: 56 }}
           />
 
           <Box>
-            <Typography fontWeight={600}>
-              {employee.name}
-            </Typography>
-
-            <Typography variant="body2" color="text.secondary">
-              ID: {employee.id} • {employee.title} • {employee.department}
-            </Typography>
+            <Box display={"flex"} gap={1}>
+              <Typography fontWeight={600}>
+                {employee?.user?.first_name}
+              </Typography>
+              <Typography fontWeight={600}>
+                {employee?.user?.last_name}
+              </Typography>
+            </Box>
+            <Box display={"flex"} alignItems={"center"}>
+              <Typography variant="body2" color="text.secondary">
+                ID: {employee?.employee_id}
+              </Typography>
+              <Box display={"flex"} gap={1}>
+                <PersonOutlineIcon />
+                <Typography>{employee?.user?.preferred_name}</Typography>
+              </Box>
+              <Box display={"flex"} gap={1}>
+                <HomeOutlinedIcon />
+                <Typography>{employee?.department?.name}</Typography>
+              </Box>
+            </Box>
           </Box>
         </Stack>
       </Paper>
 
-      {/* TITLE + ACTIONS */}
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -126,9 +140,7 @@ export default function EmployeeView({ employee }) {
         mb={2}
       >
         <Box>
-          <Typography fontWeight={600}>
-            Weekly Schedules
-          </Typography>
+          <Typography fontWeight={600}>Weekly Schedules</Typography>
 
           <Typography variant="body2" color="text.secondary">
             View and manage work schedules by week
@@ -161,7 +173,6 @@ export default function EmployeeView({ employee }) {
         </Stack>
       </Stack>
 
-      {/* WEEK SELECT */}
       <Paper
         elevation={0}
         sx={{
@@ -177,9 +188,7 @@ export default function EmployeeView({ employee }) {
               Previous
             </Button>
 
-            <Typography fontWeight={500}>
-              Feb 10-16, 2026
-            </Typography>
+            <Typography fontWeight={500}>Feb 10-16, 2026</Typography>
 
             <Button size="small" variant="outlined">
               Next
@@ -187,11 +196,7 @@ export default function EmployeeView({ employee }) {
           </Stack>
 
           <Stack direction="row" spacing={1}>
-            <Button
-              size="small"
-              startIcon={<PrintIcon />}
-              variant="outlined"
-            >
+            <Button size="small" startIcon={<PrintIcon />} variant="outlined">
               Print
             </Button>
 
@@ -210,7 +215,6 @@ export default function EmployeeView({ employee }) {
         </Stack>
       </Paper>
 
-      {/* TABLE */}
       <Paper
         elevation={0}
         sx={{
@@ -219,12 +223,7 @@ export default function EmployeeView({ employee }) {
         }}
       >
         {/* HEADER */}
-        <Stack
-          direction="row"
-          p={2}
-          fontWeight={600}
-          color="text.secondary"
-        >
+        <Stack direction="row" p={2} fontWeight={600} color="text.secondary">
           <Box flex={2}>Day</Box>
           <Box flex={2}>Shift</Box>
           <Box flex={2}>Work Time</Box>
@@ -234,41 +233,33 @@ export default function EmployeeView({ employee }) {
         <Divider />
 
         {/* ROWS */}
-        {schedule.map((item, i) => (
-          <Stack
-            key={i}
-            direction="row"
-            p={2}
-            alignItems="center"
-          >
+        {schedule?.map((item, i) => (
+          <Stack key={i} direction="row" p={2} alignItems="center">
             <Box flex={2}>
-              <Typography fontWeight={500}>
-                {item.day}
-              </Typography>
+              <Typography fontWeight={500}>{item?.day}</Typography>
 
               <Typography variant="body2" color="text.secondary">
-                {item.date}
+                {item?.date}
               </Typography>
             </Box>
 
             <Box flex={2}>
               <Chip
-                label={item.shift}
+                label={item?.shift}
                 sx={{
-                  backgroundColor: item.color,
-                  color: item.textColor,
+                  backgroundColor: item?.color,
+                  color: item?.textColor,
                 }}
               />
             </Box>
 
-            <Box flex={2}>{item.time}</Box>
+            <Box flex={2}>{item?.time}</Box>
 
-            <Box flex={1}>{item.hours}</Box>
+            <Box flex={1}>{item?.hours}</Box>
           </Stack>
         ))}
       </Paper>
 
-      {/* SUMMARY */}
       <Paper sx={{ padding: 3, borderRadius: 3, mt: 3 }}>
         <Box sx={{ fontWeight: 700 }}>Weekly summary</Box>
         <Stack direction="row" spacing={2} mt={3}>
@@ -305,9 +296,7 @@ function SummaryCard({ title, subtitle }) {
         {title}
       </Typography>
 
-      <Typography color="text.secondary">
-        {subtitle}
-      </Typography>
+      <Typography color="text.secondary">{subtitle}</Typography>
     </Paper>
   );
 }

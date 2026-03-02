@@ -1,156 +1,174 @@
-import React, { useState } from "react";
-import {
-    Box,
-    Tabs,
-    Tab,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    Chip,
-    IconButton,
-    Paper,
-    Typography,
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+
 import { PageTitle } from "../../components/pageTitle/pageTitle";
 import HeaderButton from "../../components/buttons/Button";
-import AddIcon from "@mui/icons-material/Add";
 import HeaderAppBar from "../../components/appBar/AppBar";
 import AnnouncementContent from "./components/AnnouncementContent";
 import GlobalModal from "../../components/modal/GlobalModal";
+import StatusChip from "../../components/table/StatusChip";
+import GlobalTable from "../../components/table/Table";
+import TableActions from "../../components/table/TableActions";
 
-const statusColors = {
-    Published: { bg: "#DCFCE7", color: "#15803D" },
-    Draft: { bg: "#E5E7EB", color: "#374151" },
-};
-
-// ✅ Local data
-const announcements = [
-    { id: 1, title: "Company Holiday Schedule 2024", author: "Amanda White", date: "2024-01-20", audience: "All employees", status: "Published", read: "128 / 142" },
-    { id: 2, title: "New Health Insurance Benefits", author: "Amanda White", date: "2024-01-18", audience: "All employees", status: "Published", read: "135 / 142" },
-    { id: 3, title: "Engineering Team Meeting - Q1 Planning", author: "David Wilson", date: "2024-01-22", audience: "Engineering", status: "Published", read: "42 / 48" },
-    { id: 4, title: "Office Renovation Notice", author: "Facilities Team", date: "2024-01-15", audience: "All employees", status: "Published", read: "140 / 142" },
-    { id: 5, title: "Sales Performance Review Guidelines", author: "Robert Martinez", date: "2024-01-23", audience: "Sales", status: "Draft", read: "0 / 32" },
-    { id: 6, title: "New Employee Onboarding Session", author: "Amanda White", date: "2024-01-19", audience: "HR, New Hires", status: "Published", read: "18 / 20" },
-];
+import { useInfiniteGet } from "../../hooks/useInfiniteList";
+import { getAllAnnouncement } from "../../api/queries/getters";
+import { formatTimeYear } from "../../utils/formatTime";
+import AnnouncementDetail from "./components/AnnouncementDetail";
 
 const AnnouncementsPage = () => {
-    const [tab, setTab] = useState(0);
-    const [isModal, setModal] = useState(false);
-    const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [filters, setFilters] = useState({
+    status: "",
+  });
+  const [tab, setTab] = useState(0);
+  const [isModal, setModal] = useState(false);
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [selectedId, setSelectedDetail] = useState(null);
+  const [isDetailModal, setIsDetailModal] = useState(false);
+  const announcementsQuery = useInfiniteGet({
+    key: ["announcements"],
+    apiFn: getAllAnnouncement,
+    filters,
+  });
 
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
 
-    const filteredAnnouncements = announcements.filter((item) => {
-        if (tab === 1) return item.status === "Published";
-        if (tab === 2) return item.status === "Draft";
-        return true; // All
-    });
+    let newStatus = "";
+    if (newValue === 1) newStatus = "publish";
+    if (newValue === 2) newStatus = "draft";
+    setFilters((prev) => ({ ...prev, status: newStatus }));
+  };
 
-    return (
-        <Box>
-            {/* Header */}
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mb: 3,
-                }}
-            >
-                <PageTitle title="Announcements" subTitle="Manage company announcements" />
-                <HeaderButton onClick={() => {
-                    setSelectedAnnouncement(null);
-                    setModal(true);
-                }}
-                    width={220} icon={<AddIcon />}>
-                    New Announcement
-                </HeaderButton>
-            </Box>
+  const handleOpenModal = (data = null) => {
+    setSelectedAnnouncement(data);
+    setModal(true);
+  };
 
-            {/* Tabs */}
-            <HeaderAppBar>
-                <Tabs
-                    value={tab}
-                    onChange={(e, val) => setTab(val)}
-                >
-                    <Tab label="All" />
-                    <Tab label="Published" />
-                    <Tab label="Draft" />
-                </Tabs>
-            </HeaderAppBar>
-            <Paper>
-                {/* Table */}
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell>Author</TableCell>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Target Audience</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Read Stats</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredAnnouncements.map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCell>{item.title}</TableCell>
-                                <TableCell>{item.author}</TableCell>
-                                <TableCell>{item.date}</TableCell>
-                                <TableCell>{item.audience}</TableCell>
-                                <TableCell>
-                                    <Chip
-                                        label={item.status}
-                                        size="small"
-                                        sx={{
-                                            backgroundColor: statusColors[item.status].bg,
-                                            color: statusColors[item.status].color,
-                                            fontWeight: 500,
-                                        }}
-                                    />
-                                </TableCell>
-                                <TableCell>{item.read}</TableCell>
-                                <TableCell>
-                                    <IconButton size="small"><VisibilityIcon /></IconButton>
-                                    <IconButton size="small"
-                                        onClick={() => {
-                                            setSelectedAnnouncement(item);
-                                            setModal(true);
-                                        }}
-                                    ><EditIcon /></IconButton>
-                                    <IconButton size="small"><DeleteIcon /></IconButton>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Paper>
-            <GlobalModal
-                open={isModal}
-                onClose={() => {
-                    setModal(false);
-                    setSelectedAnnouncement(null);
-                }}
-                maxWidth="sm"
-                fullWidth
-            >
-                <AnnouncementContent
-                    data={selectedAnnouncement}
-                    onClose={() => {
-                        setModal(false);
-                        setSelectedAnnouncement(null);
-                    }}
-                />
-            </GlobalModal>
+  const handleCloseModal = () => {
+    setModal(false);
+    setSelectedAnnouncement(null);
+    announcementsQuery.refetch();
+  };
 
-
+  const columns = [
+    {
+      key: "Text",
+      label: "Title",
+      render: (row) => (
+        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+          {row.Text || "No Title"}
+        </Typography>
+      ),
+    },
+    {
+      key: "CreatedAt",
+      label: "Date",
+      render: (row) => <Box>{formatTimeYear(row.CreatedAt)}</Box>,
+    },
+    {
+      key: "TargetAudience",
+      label: "Target Audience",
+      render: (row) => row.TargetAudience || "General",
+    },
+    {
+      key: "Status",
+      label: "Status",
+      render: (row) => <StatusChip status={row.Status} />,
+    },
+    {
+      key: "ReadCount",
+      label: "Read stats",
+      render: (row) => (
+        <Box sx={{ fontSize: "0.875rem", color: "text.secondary" }}>
+          {row?.ReadCount || 0} / {row?.SendCount || 0}
         </Box>
-    );
+      ),
+    },
+    {
+      key: "actions",
+      label: "Actions",
+      render: (row) => (
+        <TableActions
+          onEdit={() => handleOpenModal(row)}
+          onView={() => {
+            setSelectedDetail(row);
+            setIsDetailModal(true);
+          }}
+          onDelete={() => {
+            console.log("Delete ID:", row.ID);
+          }}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 3,
+        }}
+      >
+        <PageTitle
+          title="Announcements"
+          subTitle="Manage and track company-wide announcements"
+        />
+        <HeaderButton
+          onClick={() => handleOpenModal(null)}
+          width={220}
+          icon={<AddIcon />}
+        >
+          New Announcement
+        </HeaderButton>
+      </Box>
+
+      <HeaderAppBar>
+        <Tabs value={tab} onChange={handleTabChange} sx={{ px: 2 }}>
+          <Tab label="All Announcements" />
+          <Tab label="Published" />
+          <Tab label="Drafts" />
+        </Tabs>
+      </HeaderAppBar>
+
+      <GlobalTable
+        columns={columns}
+        rows={announcementsQuery.data}
+        onScroll={announcementsQuery.handleScroll}
+        isLoading={announcementsQuery.isLoading}
+        isFetchingNextPage={announcementsQuery.isFetchingNextPage}
+        isError={announcementsQuery.isError}
+        emptyMessage="No announcements found for this category."
+      />
+
+      <GlobalModal
+        open={isModal}
+        onClose={handleCloseModal}
+        maxWidth="sm"
+        fullWidth
+      >
+        <AnnouncementContent
+          data={selectedAnnouncement}
+          onClose={handleCloseModal}
+        />
+      </GlobalModal>
+
+      <GlobalModal
+        open={isDetailModal}
+        onClose={() => setIsDetailModal(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <AnnouncementDetail
+          id={selectedId?.ID}
+          onClose={() => setIsDetailModal(false)}
+        />
+      </GlobalModal>
+    </Box>
+  );
 };
 
 export default AnnouncementsPage;

@@ -1,7 +1,6 @@
 import { Box, Typography, InputBase } from "@mui/material";
 import ListIcon from "@mui/icons-material/FormatListBulleted";
 import BoardIcon from "@mui/icons-material/ViewKanban";
-import WeekIcon from "@mui/icons-material/DateRange";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchIcon from "@mui/icons-material/Search";
@@ -9,14 +8,13 @@ import { useState } from "react";
 
 import ListView from "./ListView";
 import BoardView from "./BoardView";
-import WeekView from "./WeekView";
 import CalendarView from "./CalendarView";
 
 
 const VIEWS = [
   { label: "List", icon: <ListIcon sx={{ fontSize: 15 }} />, component: ListView },
   { label: "Board", icon: <BoardIcon sx={{ fontSize: 15 }} />, component: BoardView },
-  { label: "Week", icon: <WeekIcon sx={{ fontSize: 15 }} />, component: WeekView },
+  // { label: "Week", icon: <WeekIcon sx={{ fontSize: 15 }} />, component: WeekView },
   { label: "Calendar", icon: <CalendarTodayIcon sx={{ fontSize: 15 }} />, component: CalendarView },
 ];
 

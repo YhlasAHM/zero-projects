@@ -1,8 +1,7 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { useState } from "react";
 import { PageTitle } from "../../components/pageTitle/pageTitle";
 import GlobalTable from "../../components/table/Table";
-import TablePaginationInfo from "../../components/table/TablePagination";
 import EmployeeCell from "../../components/table/EmployeeCell";
 import StatusChip from "../../components/table/StatusChip";
 import TableActions from "../../components/table/TableActions";

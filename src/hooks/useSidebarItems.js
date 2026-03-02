@@ -54,12 +54,12 @@ export const useSidebarItems = () => {
                 routeKey: 'newRequests',
                 icon: PersonAddAlt1Icon
             },
-            {
-                id: 'LetterRequests',
-                name: 'LetterRequests',
-                routeKey: 'letterRequests',
-                icon: EmailIcon
-            },
+            // {
+            //     id: 'LetterRequests',
+            //     name: 'LetterRequests',
+            //     routeKey: 'letterRequests',
+            //     icon: EmailIcon
+            // },
             {
                 id: 'Announcements',
                 name: 'Announcements',
